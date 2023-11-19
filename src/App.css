@@ -1,38 +1,285 @@
-.App {
+.admin{
+  background-color: white;
+  overflow: hidden;
+  height:70px;
+
+}
+
+.admin .col{
+  box-shadow: 0.5px 0.5px 2px rgb(202, 198, 198);
+  height:68px;
+  color: rgb(82, 82, 180);
+}
+.admin img{
+  border-radius: 20px;
+}
+ 
+
+/* login */
+.login{
+  padding-top: 50px;
+  height: 100vh;
+  color:black;
+  background-image: url('./image/115387.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.login p{
+  color: black;
+  padding-left: 30px;
+  font-size: 20px;
+}
+.login hr{
+  width: 100% !important;
+}
+form{
+  margin-left: 25%;
+  margin-top: 30px;
+  align-items: center;
+  width: 40%;
+  border-radius: 20px;
+  background-color: rgba(195, 182, 182, 0.3);
+  padding-top: 50px;
+  padding-bottom: 30px;
+  box-shadow: 2px 2px 3px rgb(104, 138, 251);
+  
+}
+form label{
+  font-size: 20px;
+  color: blue;
+  padding-top: 20px;
+  padding-left: 80px;
+  width: 100%;
+}
+form input{
+  width: 80%;
+  border-radius: 10px;
+  border: 1px solid;
+  border: none;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 20px;
+}
+form input:focus{
+  border: none !important;
+}
+form input:active{
+  border: none;
+}
+form input:hover{
+  border: none;
+}
+form .btn{
+  margin-top: 30px;
+  margin-bottom: 20px;  
+  width: 70%;
+  background-color:rgb(203, 40, 40);
+  border: none;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  margin-left: 80px;
+  color: white;
+  font-size: 15px;
+} 
+form .btn:hover{
+  background-color:rgb(0, 4, 250);
+  color: white;
+}
+form .row {
+ 
+  background-color: rgb(250, 157, 188);
+}
+form .col img{
+  margin-top: 50px;
+  margin-bottom: 50px;
+  margin-left: 60px;
+  border-radius: 50px;
+  width: 80%;
+  height: 500px;
+
+}
+.form .col img:hover{
+background-color: rgb(119, 116, 116,.5);
+}
+.categories{
+  margin-top: 100px;
+  margin-left: 30%;
+}
+.table{
+  margin-top: 50px;
+} 
+
+/* dashbored */
+/* .Dashboard{
+  height: 1000px;
+  font-size: medium;
+  width: 100%;
+margin-top: -40px;
+ background-color: rgb(245, 245, 245);
+ margin-top: 100px;
+
+  
+} */
+.Dtop{
+  height: 30px;
+  font-size: xx-large;
+color:rgb(19, 19, 19);
+  width: 50%;
+  padding: 25px;
+  margin-top: 22px;
+  font-weight: 100;
+  border: 1px solid rgb(230, 231, 233);
+ 
+}
+.Dtop2{
+  height: 190px;
+  
+
+}
+.fourdivs{
+  height: 160px;
+  width:10% ;
+  display: inline-block;
+ margin: 2%;
+  border-radius: 8px;
+ 
+ 
+}
+.fourdivtop{
+  background-color:rgb(64, 181, 223);
+  height: 35px;
+border-top-right-radius: 8px;
+border-top-left-radius:8px;
+color: white;
+
+}
+.zero{
+  float: right;
+  margin-top: -36px;
+}
+.fourdivcenter{
+  height: 60px;
+  background-color:rgb(50, 158, 197);
+  color: rgb(100, 191, 240);
+  font-size:50px;
+ padding-top: 15px;
+ padding-left: 10px;
+}
+.fourdivcenter:hover{
+  color: white;
+}
+.numbers{
+  margin-left: 100px;
+  margin-top: -70px;
+  color: white;
+  font-weight: 500;
+}
+.fourdivbottom{
+  height:30px;
+  background-color: rgb(40, 153, 187);
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+
+}
+
+.Home{
+float: right;
+margin-right: 700px;
+  font-size: medium;
+
+}
+.Home a{
+  text-decoration: none;
+}
+
+
+
+.Filters{
+  height: 100px;
+  font-size: xx-large;
+  font-weight: 700;
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+
+.Languageeditor{
+  height: 100px;
+  font-size: xx-large;
+  font-weight: 700;
+  text-align: center;
+}
+.Layouts{
+  height: 100px;
+  font-size: xx-large;
+  font-weight: 700;
+  text-align: center;
+}
+.Themeeditor{
+  height: 100px;
+  font-size: xx-large;
+  font-weight: 700;
+  text-align: center;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.Orders{
+  height: 100px;
+  font-size: xx-large;
+  font-weight: 700;
+  text-align: center;
+}
+.Recurringorders{
+  height: 100px;
+  font-size: xx-large;
+  font-weight: 700;
+  text-align: center;
+}
+.Returns{
+  height: 100px;
+  font-size: xx-large;
+  font-weight: 700;
+  text-align: center;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+.Customergroups{
+  height: 100px;
+  font-size: xx-large;
+  font-weight: 700;
+  text-align: center;
+}
+.Customerapprovals{
+  height: 100px;
+  font-size: xx-large;
+  font-weight: 700;
+  text-align: center;
+}
+
+#Arrow{
+ float: right;
+ font-size: 20px;
+ margin-top: -10px;
+color: rgb(156, 188, 192);
+
+}
+#Arrow:hover{
+  color:  rgb(72, 195, 248);
+}
+.Settings{
+ float: right;
+  margin-left: 1000px;
+  margin-top: -50px;
+  height: 35px;
+font-size: small;
+  background-color: rgb(57, 166, 255);
+  border: none;
+  border-radius:5px;
   color: white;
+padding: 5px;
+padding-right:2px ;
+}
+i{
+  padding: 5px;
+  padding-right: 10px;
+  
 }
 
-.App-link {
-  color: #61dafb;
-}
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
