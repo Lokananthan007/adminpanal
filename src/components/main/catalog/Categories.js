@@ -26,7 +26,7 @@ function Categories(){
               <div className="col-lg-6"></div>
               <div className="col-lg-2 ps-2 addnew">
                 <Link to="/add" style={{textDecoration: 'none'}}   title="Add New"> <FaPlus style={{backgroundColor:'blue'}} className="icon ps-1 pe-1 " /></Link>
-                <Link to="#" style={{textDecoration: 'none'}}   title="Refresh"> <FiRefreshCw style={{backgroundColor:'gray'}}  className="icon ps-1 pe-1" /></Link>
+                <Link to="#" style={{textDecoration: 'none'}}   title="Reset"> <FiRefreshCw style={{backgroundColor:'gray'}}  className="icon ps-1 pe-1" /></Link>
                 <Link to="#" style={{textDecoration: 'none'}}   title="Delete"> <MdDelete style={{backgroundColor:'red'}} className="icon ps-1 pe-1" /></Link>
               </div>
               <hr></hr>
