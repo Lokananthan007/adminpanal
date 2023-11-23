@@ -15,6 +15,7 @@ import Return from './components/main/sales/Return';
 
 import Login from './Login';
 import Filter from './components/main/catalog/Filter';
+import Add from './components/main/catalog/Add';
 
 function App(){
   return(
@@ -23,7 +24,9 @@ function App(){
         <Route path="/" element={<Login/>}></Route>
         <Route path="/admin" element={<Admin/>}>
           <Route exact path='/admin' element={<Dashboard/>} />
+          <Route path='/admin/catalog/categories/details'/>
           <Route path='/admin/catalog/categories' element={<Categories/>}/>
+          <Route path='/admin/catalog/categories/add' element={<Add/>}/>
           <Route path='/admin/catalog/product' element={<Product/>}/>
           <Route path='/admin/catalog/filter' element={<Filter/>}/>
           <Route path='/admin/design/layout' element={<Layout/>}/>
