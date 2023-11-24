@@ -1,3 +1,5 @@
+// Database.js
+
 const mongoose = require("mongoose");
 
 const mongo_uri = "mongodb://127.0.0.1:27017/admin_db"

@@ -32,7 +32,7 @@
 .login hr{
   width: 100% !important;
 }
-form{
+.login form{
   margin-left: 25%;
   margin-top: 30px;
   align-items: center;
@@ -44,14 +44,14 @@ form{
   box-shadow: 2px 2px 3px rgb(104, 138, 251);
   
 }
-form label{
+.login form label{
   font-size: 20px;
   color: blue;
   padding-top: 20px;
   padding-left: 80px;
   width: 100%;
 }
-form input{
+.login form input{
   width: 80%;
   border-radius: 10px;
   border: 1px solid;
@@ -60,16 +60,16 @@ form input{
   padding-bottom: 10px;
   padding-left: 20px;
 }
-form input:focus{
+.login form input:focus{
   border: none !important;
 }
-form input:active{
+.loginform input:active{
   border: none;
 }
-form input:hover{
+.login form input:hover{
   border: none;
 }
-form .btn{
+.login form .btn{
   margin-top: 30px;
   margin-bottom: 20px;  
   width: 70%;
@@ -81,15 +81,15 @@ form .btn{
   color: white;
   font-size: 15px;
 } 
-form .btn:hover{
+.login form .btn:hover{
   background-color:rgb(0, 4, 250);
   color: white;
 }
-form .row {
+.login form .row {
  
   background-color: rgb(250, 157, 188);
 }
-form .col img{
+.login form .col img{
   margin-top: 50px;
   margin-bottom: 50px;
   margin-left: 60px;
@@ -98,7 +98,7 @@ form .col img{
   height: 500px;
 
 }
-.form .col img:hover{
+.login .form .col img:hover{
 background-color: rgb(119, 116, 116,.5);
 }
 .categories{
