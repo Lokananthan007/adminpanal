@@ -8,7 +8,7 @@
     margin-left: -20px;
     overflow: hidden;
 }
-.home2{
+.catagories .home2{
     float: right;
     width: 82.5%;
     font-size: medium;
@@ -16,32 +16,53 @@
     padding: 20px;
     height: 200px;
 }
-  Link{
+.catagories Link{
     text-decoration: none !important;
     color: gray !important;
     font-size: 50px !important;
 }
-.head{
+.catagories .head{
     color: rgb(78, 78, 78);
     float: left;
     width: 100%;
     height: 50px;
     border-bottom: 1px solid grey;
 }
-.addnew{
+.catagories .addnew{
     text-align: center;
     color: white;
     font-size: 20px;
     padding-left: 20px;
 }
 
-.addnew .icon{
+.catagories .addnew .icon{
     width: 35px !important;
     height: 35px !important;
     color: white;
     border-radius: 5px; 
 
 }
-.addnew .icon:hover{
+.catagories .addnew .icon:hover{
     color: rgb(156, 244, 252) !important;
+}
+.add{
+    margin-top: 70px;
+    margin-left: -20px;
+    overflow: hidden;
+}
+.add .home3{
+    float: right;
+    width: 82.5%;
+    font-size: medium;
+    font-family: 'Lato', sans-serif;
+    padding: 20px;
+    height: 200px
+}
+.add Link{
+    text-decoration: none !important;
+    color: gray !important;
+    font-size: 50px !important;
+}
+.add .container{
+    margin-left: 30%;
 }

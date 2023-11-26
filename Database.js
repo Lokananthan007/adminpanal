@@ -1,20 +1,14 @@
-// Database.js
-
 const mongoose = require("mongoose");
 
-const mongo_uri = "mongodb://127.0.0.1:27017/admin_db"
+const mongo_uri = 'mongodb://localhost:27017/admin_db';
 
 exports.connect = () => {
-
   mongoose
-    .connect(mongo_uri, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    })
+    .connect(mongo_uri)
     .then(() => {
-      console.log("Successfully connected to database");
+      console.log("Successfully connected to the database");
     })
     .catch((error) => {
-      console.error("database connection failed"+error);
+      console.error("Database connection failed: " + error);
     });
 };
