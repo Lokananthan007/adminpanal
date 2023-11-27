@@ -44,6 +44,7 @@
 }
 .catagories .addnew .icon:hover{
     color: rgb(156, 244, 252) !important;
+
 }
 .add{
     margin-top: 70px;
@@ -65,4 +66,17 @@
 }
 .add .container{
     margin-left: 30%;
+}
+.add .goback{
+    text-align: center;
+    color: white;
+    font-size: 20px;
+    padding-left: 20px;
+}
+.add .goback .icon{
+    width: 35px !important;
+    height: 35px !important;
+    color: white;
+    border-radius: 5px; 
+
 }

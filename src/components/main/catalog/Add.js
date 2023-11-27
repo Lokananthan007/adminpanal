@@ -1,15 +1,30 @@
-import React, { useState } from "react";
+import { React, useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { IoIosArrowForward } from "react-icons/io";
-import '../catalog/Categories.css';
+import { RiArrowGoBackFill } from "react-icons/ri";
+
 
 
 function Add() {
+  const [data, setData] = useState([]);
   const [formInputData, setFormInputData] = useState({
     category: "",
     subcategory: "",
   });
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = async () => {
+    try {
+      const response = await axios.get("http://localhost:2233/insert/categories");
+      setData(response.data.categories);
+    } catch (error) {
+      console.error("Error fetching data:", error.message);
+    }
+  };
 
   const handleChange = (evnt) => {
     const newInput = { ...formInputData, [evnt.target.name]: evnt.target.value };
@@ -18,20 +33,18 @@ function Add() {
 
   const handleSubmit = async (evnt) => {
     evnt.preventDefault();
-    console.log(formInputData);
     try {
       const response = await axios.post("http://localhost:2233/insert/categories", formInputData);
 
-      console.log(response.data.message); 
-      console.log(response.data.user);
-
+      setData([...data, response.data.user]); // Assuming the server sends back the saved user in response
+      setFormInputData({ category: "", subcategory: "" });
     } catch (error) {
       console.error("Error sending data:", error.message);
     }
   };
 
   return (
-      <div className="add">
+    <div className="add">
       <div className="home3">
         <div className="header">
         <div className="row">
@@ -45,20 +58,21 @@ function Add() {
                 <Link to="/admin/catalog/categories"style={{color:"blue",fontSize:"20px",textDecoration:"none"}}>Categories</Link>
               </div>
               <div className="col-lg-6"></div>
-              <div className="col-lg-2 ps-2 addnew">
-                {/* <Link to="/admin/catalog/categories/add" style={{textDecoration: 'none'}}   title="Add New"> <FaPlus style={{backgroundColor:'blue'}} className="icon ps-1 pe-1 " /></Link>
-                <Link to="#" style={{textDecoration: 'none'}}   title="Reset"> <FiRefreshCw style={{backgroundColor:'gray'}}  className="icon ps-1 pe-1" /></Link>
-                <Link to="#" style={{textDecoration: 'none'}}   title="Delete"> <MdDelete style={{backgroundColor:'red'}} className="icon ps-1 pe-1" /></Link> */}
+              <div className="col-lg-2 ps-2 goback">
+                <Link to="/admin/catalog/categories" style={{textDecoration: 'none'}}   title="Go Back"> <RiArrowGoBackFill style={{backgroundColor:'blue'}} className="icon ps-1 pe-1 " /></Link>
+                {/* <Link to="#" style={{textDecoration: 'none'}}   title="Reset"> <FiRefreshCw style={{backgroundColor:'gray'}}  className="icon ps-1 pe-1" /></Link> */}
+                {/* <Link to="#" style={{textDecoration: 'none'}}   title="Delete"> <MdDelete style={{backgroundColor:'red'}} className="icon ps-1 pe-1" /></Link> */}
               </div>
               <hr></hr>
             </div>
            
         </div>
         </div>
-            
+        
+      
+    
 
-
-      <div className="container">
+      <div className="container d-block">
         <div className="card" style={{ width: "70%", height: "300px" }}>
           <div className="form ps-5 ms-5">
             <form
@@ -102,7 +116,6 @@ function Add() {
         </div>
       </div>
     </div>
-
   );
 }
 
