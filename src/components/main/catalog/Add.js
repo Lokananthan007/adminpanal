@@ -12,6 +12,7 @@ function Add() {
     category: "",
     subcategory: "",
   });
+  const [success, setSuccess] = useState(false);
 
   useEffect(() => {
     fetchData();
@@ -35,14 +36,13 @@ function Add() {
     evnt.preventDefault();
     try {
       const response = await axios.post("http://localhost:2233/insert/categories", formInputData);
-
-      setData([...data, response.data.user]); // Assuming the server sends back the saved user in response
+      setData([...data, response.data.user]);
       setFormInputData({ category: "", subcategory: "" });
+      setSuccess(true);
     } catch (error) {
       console.error("Error sending data:", error.message);
     }
   };
-
   return (
     <div className="add">
       <div className="home3">
@@ -111,6 +111,7 @@ function Add() {
               >
                 Submit
               </button>
+              {success && <div className="alert alert-success mt-4">Successfully added!</div>}
             </form>
           </div>
         </div>

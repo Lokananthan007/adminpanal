@@ -1,16 +1,42 @@
 
 
-import {React} from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { IoIosArrowForward } from "react-icons/io";
 import '../catalog/Categories.css';
 import { FaPlus } from "react-icons/fa";
 import {FiRefreshCw } from "react-icons/fi";
 import { MdDelete } from "react-icons/md";
+import axios from "axios";
+
 
 
 function Categories(){
+  const [data, setData] = useState([]); 
+  const [selectedCategories, setSelectedCategories] = useState([]);
+
+  useEffect(() => {
+    fetchData(); 
+  }, []);
+
+  const fetchData = async () => {
+    try {
+      const response = await axios.get("http://localhost:2233/insert/categories");
+      const sortedCategories = response.data.categories.sort((a, b) => b._id.localeCompare(a._id));
+      setData(sortedCategories);
+    } catch (error) {
+      console.error("Error fetching data:", error.message);
+    }
+  };
   
+
+  const handleCheckboxChange = (categoryId) => {
+    if (selectedCategories.includes(categoryId)) {
+      setSelectedCategories(selectedCategories.filter(id => id !== categoryId));
+    } else {
+      setSelectedCategories([...selectedCategories, categoryId]);
+    }
+  };
   return(
     <div className="catagories">
       <div className="home2">
@@ -36,7 +62,36 @@ function Categories(){
            
         </div>
         </div>
-        
+        <div className="container" style={{width:'60%'}}>
+        {data.length > 0 ? (
+          <table className="table">
+            <thead>
+              <tr>
+                <th>Checkbox</th>
+                <th>Category</th>
+                <th>Subcategory</th>
+              </tr>
+            </thead>
+            <tbody>
+              {data.map((category) => (
+                <tr key={category._id}>
+                  <td>
+                    <input
+                      type="checkbox"
+                      checked={selectedCategories.includes(category._id)}
+                      onChange={() => handleCheckboxChange(category._id)}
+                    />
+                  </td>
+                  <td>{category.category}</td>
+                  <td>{category.subcategory}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        ) : (
+          <p style={{textAlign:'center',color:'red',fontSize:' 40px'}}>No categories available</p>
+        )}
+      </div>
       
       </div>
     
