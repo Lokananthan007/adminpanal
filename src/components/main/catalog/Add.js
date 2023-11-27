@@ -13,6 +13,8 @@ function Add() {
     subcategory: "",
   });
   const [success, setSuccess] = useState(false);
+  const [error, setError] = useState("");
+
 
   useEffect(() => {
     fetchData();
@@ -34,15 +36,26 @@ function Add() {
 
   const handleSubmit = async (evnt) => {
     evnt.preventDefault();
+
+    if (!formInputData.category || !formInputData.subcategory) {
+      setError("Please fill in all required fields");
+      return;
+    }
+
     try {
-      const response = await axios.post("http://localhost:2233/insert/categories", formInputData);
+      const response = await axios.post(
+        "http://localhost:2233/insert/categories",
+        formInputData
+      );
       setData([...data, response.data.user]);
       setFormInputData({ category: "", subcategory: "" });
       setSuccess(true);
+      setError(""); 
     } catch (error) {
       console.error("Error sending data:", error.message);
     }
   };
+
   return (
     <div className="add">
       <div className="home3">
@@ -72,7 +85,7 @@ function Add() {
       
     
 
-      <div className="container d-block">
+      <div className="container ">
         <div className="card" style={{ width: "70%", height: "300px" }}>
           <div className="form ps-5 ms-5">
             <form
@@ -111,7 +124,24 @@ function Add() {
               >
                 Submit
               </button>
-              {success && <div className="alert alert-success mt-4">Successfully added!</div>}
+              <div>
+              {error && (
+                <div
+                  className="alert alert-danger mt-2"
+                  style={{ width: "60%", marginLeft: "6%",textAlign:'center' }}
+                >
+                  {error}
+                </div>
+              )}
+              </div>
+              <div>
+              {success && 
+              <div 
+              className="alert alert-success mt-4" 
+              style={{width:"60%",marginLeft:"6%",textAlign:'center'}}>
+                Successfully added!
+                </div>}
+                </div>
             </form>
           </div>
         </div>
@@ -121,3 +151,5 @@ function Add() {
 }
 
 export default Add;
+
+

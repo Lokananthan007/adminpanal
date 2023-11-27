@@ -12,11 +12,11 @@ import axios from "axios";
 
 
 function Categories(){
-  const [data, setData] = useState([]); 
+  const [data, setData] = useState([]);
   const [selectedCategories, setSelectedCategories] = useState([]);
 
   useEffect(() => {
-    fetchData(); 
+    fetchData();
   }, []);
 
   const fetchData = async () => {
@@ -28,15 +28,15 @@ function Categories(){
       console.error("Error fetching data:", error.message);
     }
   };
-  
 
   const handleCheckboxChange = (categoryId) => {
     if (selectedCategories.includes(categoryId)) {
-      setSelectedCategories(selectedCategories.filter(id => id !== categoryId));
+      setSelectedCategories(selectedCategories.filter((id) => id !== categoryId));
     } else {
       setSelectedCategories([...selectedCategories, categoryId]);
     }
   };
+
   return(
     <div className="catagories">
       <div className="home2">
@@ -62,9 +62,9 @@ function Categories(){
            
         </div>
         </div>
-        <div className="container" style={{width:'60%'}}>
+        <div className="table-responsive mt-3" style={{width:'70%',marginLeft:'23%'}}>
         {data.length > 0 ? (
-          <table className="table">
+          <table className="table table-bordered table-hover">
             <thead>
               <tr>
                 <th>Checkbox</th>
@@ -73,8 +73,11 @@ function Categories(){
               </tr>
             </thead>
             <tbody>
-              {data.map((category) => (
-                <tr key={category._id}>
+            {data.map((category, index) => (
+                <tr
+                  key={category._id}
+                  className={index % 2 === 0 ? 'table-row-even' : 'table-row-odd'}
+                >
                   <td>
                     <input
                       type="checkbox"
