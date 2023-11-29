@@ -60,7 +60,7 @@ function Categories(){
            
         </div>
         </div>
-        <div id="table" className="table-responsive mt-3">
+        <div id="table" className="table-responsive mt-1">
         {data.length > 0 ? (
           <table className="table table-bordered">
             <thead>
@@ -78,14 +78,14 @@ function Categories(){
                   key={category._id}
                   className={index % 2 === 0 ? 'table-row-even' : 'table-row-odd'}
                 >
-                  <td>
+                  <td style={{width:'10%'}}>
                     <input
                       type="checkbox"
                       checked={selectedCategories.includes(category._id)}
                       onChange={() => handleCheckboxChange(category._id)}
                     />
                   </td>
-                  <td>{category.category}</td>
+                  <td style={{width:'30%'}}>{category.category}</td>
                   <td>{category.subcategory}</td>
                 </tr>
               ))}
