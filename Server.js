@@ -7,8 +7,8 @@ const bodyParser = require('body-parser');
 require("./Database").connect(); 
 
 const app = express();
-app.use(bodyParser.urlencoded({ extended: true, limit: '50mb' }));
-app.use(bodyParser.json({ limit: '50mb', extended: false }));
+app.use(bodyParser.urlencoded({ extended: true}));
+app.use(bodyParser.json({  extended: false }));
 app.use(cors());
 
 const Category = require('./userModel');

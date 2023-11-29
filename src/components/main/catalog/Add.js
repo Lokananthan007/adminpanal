@@ -36,12 +36,14 @@ function Add() {
 
   const handleSubmit = async (evnt) => {
     evnt.preventDefault();
-
+  
     if (!formInputData.category || !formInputData.subcategory) {
       setError("Please fill in all required fields");
       return;
     }
-
+  
+   
+  
     try {
       const response = await axios.post(
         "http://localhost:2233/insert/categories",
@@ -50,11 +52,12 @@ function Add() {
       setData([...data, response.data.user]);
       setFormInputData({ category: "", subcategory: "" });
       setSuccess(true);
-      setError(""); 
+      setError("");
     } catch (error) {
       console.error("Error sending data:", error.message);
     }
   };
+  
 
   return (
     <div className="add">

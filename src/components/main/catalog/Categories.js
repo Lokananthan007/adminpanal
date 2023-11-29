@@ -1,5 +1,3 @@
-
-
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { IoIosArrowForward } from "react-icons/io";
@@ -62,18 +60,20 @@ function Categories(){
            
         </div>
         </div>
-        <div className="table-responsive mt-3" style={{width:'70%',marginLeft:'23%'}}>
+        <div id="table" className="table-responsive mt-3">
         {data.length > 0 ? (
-          <table className="table table-bordered table-hover">
+          <table className="table table-bordered">
             <thead>
               <tr>
-                <th>Checkbox</th>
+                <th><input
+                      type="checkbox"
+                    /></th>
                 <th>Category</th>
                 <th>Subcategory</th>
               </tr>
             </thead>
             <tbody>
-            {data.map((category, index) => (
+            {data.map((category,index) => (
                 <tr
                   key={category._id}
                   className={index % 2 === 0 ? 'table-row-even' : 'table-row-odd'}
@@ -92,7 +92,7 @@ function Categories(){
             </tbody>
           </table>
         ) : (
-          <p style={{textAlign:'center',color:'red',fontSize:' 40px'}}>No categories available</p>
+          <p style={{textAlign:'center',color:'red',fontSize:' 40px'}}>Categories Not Available</p>
         )}
       </div>
       

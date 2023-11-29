@@ -41,10 +41,27 @@
     color: white;
     border-radius: 5px; 
 
+}  
+ #table{
+    width: 70%;
+    margin-left: 21%;   
 }
-
-
-
+.catagories .table {
+    width: 100%;
+  }
+  
+  .catagories  .table th,
+  .catagories  .table td {
+    border: 2px solid #87a447;
+    padding: 8px;
+    text-align: left;
+  }
+  
+  .catagories  .table th {
+    background-color: #a89f9f; 
+  }
+  
+ 
 
 .add{
     margin-top: 70px;
