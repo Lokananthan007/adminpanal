@@ -12,6 +12,8 @@ import axios from "axios";
 function Categories(){
   const [data, setData] = useState([]);
   const [selectedCategories, setSelectedCategories] = useState([]);
+  const [selectAllChecked, setSelectAllChecked] = useState(false);
+
 
   useEffect(() => {
     fetchData();
@@ -27,6 +29,18 @@ function Categories(){
     }
   };
 
+
+  useEffect(() => {
+    // Update selectedCategories when selectAllChecked changes
+    if (selectAllChecked) {
+      const allCategoryIds = data.map((category) => category._id);
+      setSelectedCategories(allCategoryIds);
+    } else {
+      setSelectedCategories([]);
+    }
+  }, [selectAllChecked, data]);
+
+  
   const handleCheckboxChange = (categoryId) => {
     if (selectedCategories.includes(categoryId)) {
       setSelectedCategories(selectedCategories.filter((id) => id !== categoryId));
@@ -35,6 +49,24 @@ function Categories(){
     }
   };
 
+  const handleSelectAllChange = () => {
+    setSelectAllChecked(!selectAllChecked);
+  };
+
+  const handleDelete = async () => {
+    if (window.confirm("Are you sure you want to delete the selected categories?")) {
+      try {
+        await axios.delete("http://localhost:2233/delete/categories", { data: { ids: selectedCategories } });
+  
+        fetchData();
+        setSelectedCategories([]);
+        setSelectAllChecked(false);
+      } catch (error) {
+        console.error("Error deleting categories:", error.message);
+      }
+    }
+  };
+  
   return(
     <div className="catagories">
       <div className="home2">
@@ -53,7 +85,9 @@ function Categories(){
               <div className="col-lg-2 ps-2 addnew">
                 <Link to="/admin/catalog/categories/add" style={{textDecoration: 'none'}}   title="Add New"> <FaPlus style={{backgroundColor:'blue'}} className="icon ps-1 pe-1 " /></Link>
                 <Link to="#" style={{textDecoration: 'none'}}   title="Reset"> <FiRefreshCw style={{backgroundColor:'gray'}}  className="icon ps-1 pe-1" /></Link>
-                <Link to="#" style={{textDecoration: 'none'}}   title="Delete"> <MdDelete style={{backgroundColor:'red'}} className="icon ps-1 pe-1" /></Link>
+                <button>
+                  <MdDelete onClick={handleDelete} style={{backgroundColor:'red'}} className="icon ps-1 pe-1"  title="Delete"/>
+                  </button>
               </div>
               <hr></hr>
             </div>
@@ -66,8 +100,12 @@ function Categories(){
             <thead>
               <tr>
                 <th><input
+                      style={{marginLeft:'30%',marginRight:'7%'}}
                       type="checkbox"
-                    /></th>
+                      checked={selectAllChecked}
+                      onChange={handleSelectAllChange}
+                    />All</th>
+                <th>S.No</th>    
                 <th>Category</th>
                 <th>Subcategory</th>
               </tr>
@@ -80,11 +118,13 @@ function Categories(){
                 >
                   <td style={{width:'10%'}}>
                     <input
+                      style={{marginLeft:'40%'}}
                       type="checkbox"
                       checked={selectedCategories.includes(category._id)}
                       onChange={() => handleCheckboxChange(category._id)}
                     />
                   </td>
+                  <td style={{width:'10%'}}>{index+1}</td>
                   <td style={{width:'30%'}}>{category.category}</td>
                   <td>{category.subcategory}</td>
                 </tr>

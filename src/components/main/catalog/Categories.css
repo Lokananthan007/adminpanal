@@ -33,7 +33,11 @@
     font-size: 20px;
     padding-left: 20px;
 }
-
+.catagories .addnew button{
+    border-style: none;
+    font-size: 20px;
+    padding-left: 4px;
+}
 .catagories .addnew .icon{
     width: 35px !important;
     height: 35px !important;

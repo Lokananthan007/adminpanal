@@ -44,6 +44,26 @@ app.post("/insert/categories", async (req, res) => {
     res.status(500).json({ message: "Error occurred while inserting data" });
   }
 });
+
+app.delete("/delete/categories", async (req, res) => {
+  const categoryIds = req.body.ids;
+
+  try {
+    const deletedCategories = await Category.deleteMany({ _id: { $in: categoryIds } });
+
+    if (!deletedCategories) {
+      return res.status(404).json({ message: "Categories not found" });
+    }
+
+    res.status(200).json({ message: "Categories deleted successfully", deletedCategories });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Error occurred while deleting categories" });
+  }
+});
+
+
+
 app.listen(2233, () => {
   console.log("Server running on port 2233");
 });
