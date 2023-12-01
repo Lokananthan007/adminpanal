@@ -76,8 +76,6 @@ function Add() {
               <div className="col-lg-6"></div>
               <div className="col-lg-2 ps-2 goback">
                 <Link to="/admin/catalog/categories" style={{textDecoration: 'none'}}   title="Go Back"> <RiArrowGoBackFill style={{backgroundColor:'blue'}} className="icon ps-1 pe-1 " /></Link>
-                {/* <Link to="#" style={{textDecoration: 'none'}}   title="Reset"> <FiRefreshCw style={{backgroundColor:'gray'}}  className="icon ps-1 pe-1" /></Link> */}
-                {/* <Link to="#" style={{textDecoration: 'none'}}   title="Delete"> <MdDelete style={{backgroundColor:'red'}} className="icon ps-1 pe-1" /></Link> */}
               </div>
               <hr></hr>
             </div>

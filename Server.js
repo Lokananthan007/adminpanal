@@ -62,6 +62,34 @@ app.delete("/delete/categories", async (req, res) => {
   }
 });
 
+// Add a new route for updating categories
+app.put("/update/categories", async (req, res) => {
+  const categoryIds = req.body.ids;
+  const updatedData = req.body.updatedData;
+
+  try {
+    const updatedCategories = await Category.updateMany(
+      { _id: { $in: categoryIds } },
+      { $set: updatedData }
+    );
+
+    if (!updatedCategories) {
+      return res.status(404).json({ message: "Categories not found" });
+    }
+
+    res.status(200).json({
+      message: "Categories updated successfully",
+      updatedCategories,
+    });
+  } catch (error) {
+    console.error(error);
+    res
+      .status(500)
+      .json({ message: "Error occurred while updating categories" });
+  }
+});
+
+
 
 
 app.listen(2233, () => {
