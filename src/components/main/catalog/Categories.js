@@ -14,10 +14,7 @@ function Categories(){
   const [data, setData] = useState([]);
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [selectAllChecked, setSelectAllChecked] = useState(false);
-  const [editCategory, setEditCategory] = useState("");
-  const [editSubcategory, setEditSubcategory] = useState("");
-  const [showEditModal, setShowEditModal] = useState(false);
-
+  
   useEffect(() => {
     fetchData();
   }, []);
@@ -47,7 +44,10 @@ function Categories(){
     } else {
       setSelectedCategories([...selectedCategories, categoryId]);
     }
+  
+    console.log("Selected Categories:", selectedCategories);
   };
+  
 
   const handleSelectAllChange = () => {
     setSelectAllChecked(!selectAllChecked);
@@ -66,33 +66,9 @@ function Categories(){
     }
   };
 
-  const handleEditClick = (category, subcategory) => {
-    setEditCategory(category);
-    setEditSubcategory(subcategory);
-    setShowEditModal(true);
-  };
+  
 
-  const handleUpdate = async () => {
-    if (window.confirm("Are you sure you want to update the selected categories?")) {
-      try {
-        await axios.put("http://localhost:2233/update/categories", {
-          ids: selectedCategories,
-          updatedData: {
-            category: editCategory,
-            subcategory: editSubcategory,
-          },
-        });
-        fetchData();
-        setSelectedCategories([]);
-        setSelectAllChecked(false);
-        setEditCategory("");
-        setEditSubcategory("");
-        setShowEditModal(false);
-      } catch (error) {
-        console.error("Error updating categories:", error.message);
-      }
-    }
-  };
+ 
   
   return(
     <div className="catagories">
@@ -155,10 +131,23 @@ function Categories(){
                   <td style={{width:'10%',textAlign:'center'}}>{index+1}</td>
                   <td style={{width:'30%',textAlign:'center'}}>{category.category}</td>
                   <td style={{textAlign:'center'}}>{category.subcategory}</td>
-                  <td style={{textAlign:'center'}}>
-                    <button style={{border:'none'}} onClick={() => handleEditClick(category.category, category.subcategory)}>
-                    <FaRegEdit style={{backgroundColor:'gold',height:'30px',width:'30px'}}/>
-                    </button>
+                  <td style={{ textAlign: 'center' }}>
+                    <Link
+                       to={{
+                        pathname: '/admin/catalog/categories/edit',
+                        state: {
+                          category: category.category,
+                          subcategory: category.subcategory,
+                          selectedCategories,
+                          fetchData,
+                          setSelectedCategories,
+                          setSelectAllChecked,
+                        },
+                      }}
+                    
+                    >
+                      <FaRegEdit style={{ backgroundColor: 'none', color: 'black', height: '30px', width: '30px' }} />
+                  </Link>
                   </td>
                   
                 </tr>
@@ -169,27 +158,7 @@ function Categories(){
           <p style={{textAlign:'center',color:'red',fontSize:' 40px'}}>Categories Not Available</p>
         )}
       </div>
-      {editCategory && editSubcategory && showEditModal && (
-        <div className="edit-modal">
-          <h2>Edit Category</h2>
-          <label htmlFor="editCategory">Category:</label>
-          <input
-            type="text"
-            id="editCategory"
-            value={editCategory}
-            onChange={(e) => setEditCategory(e.target.value)}
-          />
-          <label htmlFor="editSubcategory">Subcategory:</label>
-          <input
-            type="text"
-            id="editSubcategory"
-            value={editSubcategory}
-            onChange={(e) => setEditSubcategory(e.target.value)}
-          />
-          <button onClick={handleUpdate}>Update</button>
-          <button onClick={() => setShowEditModal(false)}>Cancel</button>
-        </div>
-      )}
+      
       </div>
     
 

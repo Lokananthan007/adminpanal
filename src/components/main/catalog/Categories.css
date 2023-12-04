@@ -108,3 +108,38 @@
     border-radius: 5px; 
 
 }
+
+
+.edit{
+    margin-top: 70px;
+    margin-left: -20px;
+    overflow: hidden;
+}
+.edit .home4{
+    float: right;
+    width: 82.5%;
+    font-size: medium;
+    font-family: 'Lato', sans-serif;
+    padding: 20px;
+}
+.edit Link{
+    text-decoration: none;
+    color: gray;
+    font-size: 50px;
+}
+.edit .container{
+    margin-left: 30%;
+}
+.edit .goback{
+    text-align: center;
+    color: white;
+    font-size: 20px;
+    padding-left: 20px;
+}
+.edit .goback .icon{
+    width: 35px !important;
+    height: 35px !important;
+    color: white;
+    border-radius: 5px; 
+
+}
