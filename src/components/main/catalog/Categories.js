@@ -70,9 +70,10 @@ function Categories(){
   };
 
   const handlePageChange = (newPage) => {
-    setCurrentPage(newPage);
+    if (newPage >= 1 && newPage <= totalPages) {
+      setCurrentPage(newPage);
+    }
   };
-
  
   
   return(
@@ -153,6 +154,9 @@ function Categories(){
         )}
       </div>
       <div className="pagination">
+        <button onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1}>
+          {"<"} Back
+        </button>
         {Array.from({ length: totalPages }, (_, index) => (
           <button
             key={index}
@@ -162,8 +166,12 @@ function Categories(){
             {index + 1}
           </button>
         ))}
+        <button onClick={() => handlePageChange(currentPage + 1)} disabled={currentPage === totalPages}>
+          next {">"}
+        </button>
       </div>
-      </div>
+    </div>
+      
     
 
   )
