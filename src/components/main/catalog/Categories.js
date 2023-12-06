@@ -14,16 +14,19 @@ function Categories(){
   const [data, setData] = useState([]);
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [selectAllChecked, setSelectAllChecked] = useState(false);
-  
-  useEffect(() => {
-    fetchData();
-  }, []);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
 
-  const fetchData = async () => {
+  useEffect(() => {
+    fetchData(currentPage);
+  }, [currentPage]);
+
+  const fetchData = async (page = 1) => {
     try {
-      const response = await axios.get("http://localhost:2233/insert/categories");
+      const response = await axios.get(`http://localhost:2233/insert/categories?page=${page}`);
       const sortedCategories = response.data.categories.sort((a, b) => b._id.localeCompare(a._id));
       setData(sortedCategories);
+      setTotalPages(response.data.totalPages);
     } catch (error) {
       console.error("Error fetching data:", error.message);
     }
@@ -66,7 +69,9 @@ function Categories(){
     }
   };
 
-  
+  const handlePageChange = (newPage) => {
+    setCurrentPage(newPage);
+  };
 
  
   
@@ -133,19 +138,7 @@ function Categories(){
                   <td style={{textAlign:'center'}}>{category.subcategory}</td>
                   <td style={{ textAlign: 'center' }}>
                     <Link
-                       to={{
-                        pathname: '/admin/catalog/categories/edit',
-                        state: {
-                          category: category.category,
-                          subcategory: category.subcategory,
-                          selectedCategories,
-                          fetchData,
-                          setSelectedCategories,
-                          setSelectAllChecked,
-                        },
-                      }}
-                    
-                    >
+                        to={`/admin/catalog/categories/edit/${category._id}`}>
                       <FaRegEdit style={{ backgroundColor: 'none', color: 'black', height: '30px', width: '30px' }} />
                   </Link>
                   </td>
@@ -154,11 +147,22 @@ function Categories(){
               ))}
             </tbody>
           </table>
+          
         ) : (
           <p style={{textAlign:'center',color:'red',fontSize:' 40px'}}>Categories Not Available</p>
         )}
       </div>
-      
+      <div className="pagination">
+        {Array.from({ length: totalPages }, (_, index) => (
+          <button
+            key={index}
+            onClick={() => handlePageChange(index + 1)}
+            className={currentPage === index + 1 ? 'active' : ''}
+          >
+            {index + 1}
+          </button>
+        ))}
+      </div>
       </div>
     
 

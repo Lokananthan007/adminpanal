@@ -1,68 +1,77 @@
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, useParams } from "react-router-dom";
 import { IoIosArrowForward } from "react-icons/io";
-import '../catalog/Categories.css';
 import { RiArrowGoBackFill } from "react-icons/ri";
-
 import axios from "axios";
-import React, { useState  } from "react";
-import { useLocation } from "react-router-dom";
 
 function Edit() {
-  const location = useLocation();
-  const {
-    category: initialCategory,
-    subcategory: initialSubcategory,
-    fetchData,
-    selectedCategories,
-    setSelectedCategories,
-    setSelectAllChecked,
-  } = location.state || {};
-  const [editCategory, setEditCategory] = useState(initialCategory || "");
-  const [editSubcategory, setEditSubcategory] = useState(initialSubcategory || "");
-  const [showEditModal, setShowEditModal] = useState(true);
+  const { categoryId } = useParams();
+  const [formData, setFormData] = useState({
+    category: "",
+    subcategory: "",
+  });
+  const [success, setSuccess] = useState(false);
+  const [error, setError] = useState("");
 
-  const handleUpdate = async () => {
-    if (!selectedCategories || selectedCategories.length === 0) {
-      window.alert("Please select categories to update.");
-      return;
-    }
-
-    if (!editCategory.trim() || !editSubcategory.trim()) {
-      window.alert("Please enter values for both Category and Subcategory.");
-      return;
-    }
-
-    if (window.confirm("Are you sure you want to update the selected categories?")) {
+  useEffect(() => {
+    const fetchCategoryData = async () => {
       try {
-        const response = await axios.put("http://localhost:2233/update/categories", {
-          ids: selectedCategories,
-          updatedData: {
-            category: editCategory,
-            subcategory: editSubcategory,
-          },
-        });
+        const response = await axios.get(`http://localhost:2233/insert/categories/${categoryId}`);
+        const responseData = response.data;
 
-        // Check the response to see if the update was successful
-        console.log("Update Response:", response);
-
-        fetchData();
-        setSelectedCategories([]);
-        setSelectAllChecked(false);
-        setEditCategory("");
-        setEditSubcategory("");
-        setShowEditModal(false);
+        if (response.status === 200) {
+          setFormData({
+            category: responseData.category || "",
+            subcategory: responseData.subcategory || "",
+          });
+        } else {
+          setError("Failed to fetch category data");
+        }
       } catch (error) {
-        console.error("Error updating categories:", error.message);
+        console.error("Error fetching category data:", error);
+        setError("Failed to fetch category data");
       }
+    };
+
+    fetchCategoryData();
+  }, [categoryId]);
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    console.log("Form Data:", formData); 
+    try {
+      const response = await axios.put(`http://localhost:2233/insert/categories/${categoryId}`, formData, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (response.status === 200) {
+        setSuccess(true);
+        setError("");
+      } else {
+        setSuccess(false);
+        setError("Failed to update category");
+      }
+    } catch (error) {
+      console.error("Error updating category:", error);
+      setSuccess(false);
+      setError("Failed to update category");
     }
   };
 
-  
-  
-    return(
-      <div className="edit">
-      <div className="home4">
-        <div className="header">
+
+  return (
+    <div className="add">
+      <div className="home3">
+      <div className="header">
         <div className="row">
               <div className="col-lg-2 ps-4">
                 <h2>Catagories</h2>
@@ -76,45 +85,66 @@ function Edit() {
               <div className="col-lg-6"></div>
               <div className="col-lg-2 ps-2 goback">
                 <Link to="/admin/catalog/categories" style={{textDecoration: 'none'}}   title="Go Back"> <RiArrowGoBackFill style={{backgroundColor:'blue'}} className="icon ps-1 pe-1 " /></Link>
+              
               </div>
               <hr></hr>
             </div>
            
         </div>
-        </div>
-        
-      
-    
+      </div>
 
-      
-        <div className="card" style={{ width: "70%", height: "300px", marginLeft: "21%" }}>
-        <div className="form ps-5 ms-5">
-        {showEditModal && (
-        <div className="edit-modal">
-          <h2>Edit Category</h2>
-          <label>Category:</label>
-          <input
-            type="text"
-            id="editCategory"
-            value={editCategory}
-            onChange={(e) => setEditCategory(e.target.value)}
-          />
-          <label>Subcategory:</label>
-          <input
-            type="text"
-            id="editSubcategory"
-            value={editSubcategory}
-            onChange={(e) => setEditSubcategory(e.target.value)}
-          />
-          <button onClick={handleUpdate}>Update</button>
-          <button onClick={() => setShowEditModal(false)}>Cancel</button>
-        </div>
-      )}
-        </div>
+      <div className="container">
+        <div className="card" style={{ width: "70%", height: "300px" }}>
+          <div className="form ps-5 ms-5">
+            <form
+              onSubmit={handleSubmit}
+              encType="multipart/form-data"
+              style={{ width: "100%" }}
+            >
+              <input
+                type="text"
+                name="category"
+                value={formData.category}
+                onChange={handleChange}
+                className="form-control mt-4 ms-5"
+                placeholder="Category"
+                style={{ width: "60%", paddingLeft: "18px" }}
+                required
+              />
+              <br />
+
+              <input
+                type="text"
+                name="subcategory"
+                value={formData.subcategory}
+                onChange={handleChange}
+                className="form-control mt-4 ms-5"
+                style={{ width: "60%", paddingLeft: "18px" }}
+                placeholder="Subcategory"
+                required
+              />
+
+              <button type="submit" className="btn btn-primary ms-5 mt-4">
+                Submit
+              </button>
+
+              {/* Error and success messages */}
+              {error && (
+                <div className="alert alert-danger mt-2" style={{ width: "60%", marginLeft: "6%", textAlign: 'center' }}>
+                  {error}
+                </div>
+              )}
+              {success && (
+                <div className="alert alert-success mt-4" style={{ width: "60%", marginLeft: "6%", textAlign: 'center' }}>
+                  Successfully Updated!
+                </div>
+              )}
+            </form>
+          </div>
         </div>
       </div>
-  
-          
-    );
+    </div>
+  );
 }
+
 export default Edit;

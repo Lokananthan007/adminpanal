@@ -73,8 +73,26 @@
   .catagories .table-row-odd {
     background-color: white;
   }
+  /* Add this to your CSS file or update your existing styles */
+  .catagories .pagination {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
   
-
+  .catagories  .pagination button {
+    margin: 0 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+  }
+  
+  .catagories  .pagination span {
+    margin: 0 5px;
+    padding: 5px 10px;
+    font-weight: bold;
+  }
+  
 .add{
     margin-top: 70px;
     margin-left: -20px;

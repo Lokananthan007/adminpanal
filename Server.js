@@ -19,14 +19,30 @@ app.get("/", async (req, res) => {
 });
 
 app.get("/insert/categories", async (req, res) => {
+  const page = parseInt(req.query.page) || 1; // Get the page number from the query parameters
+  const limit = 10; // Number of items per page
+
   try {
-    const categories = await Category.find(); 
-    res.status(200).json({ categories }); 
+    const categories = await Category.find()
+      .skip((page - 1) * limit)
+      .limit(limit);
+
+    const totalCategories = await Category.countDocuments();
+    
+    res.status(200).json({
+      categories,
+      totalPages: Math.ceil(totalCategories / limit),
+      currentPage: page,
+    });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Error occurred while fetching data" });
   }
 });
+
+
+
+
 
 
 app.post("/insert/categories", async (req, res) => {
@@ -63,29 +79,33 @@ app.delete("/delete/categories", async (req, res) => {
 });
 
 // Add a new route for updating categories
-app.put("/update/categories", async (req, res) => {
-  const categoryIds = req.body.ids;
-  const updatedData = req.body.updatedData;
-
+app.get("/insert/categories/:categoryId", async (req, res) => {
   try {
-    const updatedCategories = await Category.updateMany(
-      { _id: { $in: categoryIds } },
-      { $set: updatedData }
+    const category = await Category.findById(req.params.categoryId);
+    res.json(category);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+app.put("/insert/categories/:categoryId", async (req, res) => {
+  try {
+    const { categoryId } = req.params;
+    const { category, subcategory } = req.body;
+
+    const updatedCategory = await Category.findByIdAndUpdate(
+      categoryId,
+      { category, subcategory },
+      { new: true } 
     );
 
-    if (!updatedCategories) {
-      return res.status(404).json({ message: "Categories not found" });
+    if (!updatedCategory) {
+      return res.status(404).json({ error: "Category not found" });
     }
 
-    res.status(200).json({
-      message: "Categories updated successfully",
-      updatedCategories,
-    });
+    res.json(updatedCategory);
   } catch (error) {
-    console.error(error);
-    res
-      .status(500)
-      .json({ message: "Error occurred while updating categories" });
+    res.status(500).json({ error: error.message });
   }
 });
 
